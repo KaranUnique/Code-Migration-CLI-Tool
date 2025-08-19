@@ -1,0 +1,103 @@
+{
+  "rules": [
+    {
+      "id": "python-print-statement",
+      "name": "Python 2 print statement to Python 3 function",
+      "description": "Convert Python 2 print statements to Python 3 print functions",
+      "pattern": "print\\s+([^(\\n]+)(?!\\s*\\()",
+      "replacement": "print($1)",
+      "fileTypes": ["py", "pyw"],
+      "severity": "error"
+    },
+    {
+      "id": "python-string-format",
+      "name": "Use f-strings for formatting",
+      "description": "Replace .format() calls with f-string literals where possible",
+      "pattern": "(['\"])([^'\"]*?){}([^'\"]*?)\\1\\.format\\(([^)]*)\\)",
+      "replacement": "f$1$2{$4}$3$1",
+      "fileTypes": ["py", "pyw"],
+      "severity": "info"
+    },
+    {
+      "id": "python-old-string-format",
+      "name": "Replace % string formatting",
+      "description": "Replace old % string formatting with .format() or f-strings",
+      "pattern": "(['\"])([^'\"]*?)%[sd]([^'\"]*?)\\1\\s*%\\s*([a-zA-Z_][a-zA-Z0-9_]*)",
+      "replacement": "f$1$2{$4}$3$1",
+      "fileTypes": ["py", "pyw"],
+      "severity": "warning"
+    },
+    {
+      "id": "python-import-order",
+      "name": "Import order violations",
+      "description": "Detects imports that should follow PEP 8 import order",
+      "pattern": "^from\\s+\\w+\\s+import.*\\n^import\\s+\\w+",
+      "replacement": null,
+      "fileTypes": ["py", "pyw"],
+      "severity": "info"
+    },
+    {
+      "id": "python-deprecated-imp",
+      "name": "Deprecated imp module",
+      "description": "The imp module is deprecated, use importlib instead",
+      "pattern": "import\\s+imp\\b",
+      "replacement": "import importlib",
+      "fileTypes": ["py", "pyw"],
+      "severity": "error"
+    },
+    {
+      "id": "python-deprecated-collections",
+      "name": "Deprecated collections imports",
+      "description": "Some collections classes moved to collections.abc in Python 3.3+",
+      "pattern": "from\\s+collections\\s+import\\s+(Mapping|MutableMapping|Sequence|MutableSequence|Set|MutableSet)",
+      "replacement": "from collections.abc import $1",
+      "fileTypes": ["py", "pyw"],
+      "severity": "warning"
+    },
+    {
+      "id": "python-raw-strings",
+      "name": "Use raw strings for regex",
+      "description": "Use raw strings (r'') for regex patterns to avoid escaping issues",
+      "pattern": "re\\.(compile|match|search|findall|sub)\\s*\\(\\s*['\"]([^'\"]*\\\\[^'\"]*)['\"]",
+      "replacement": "re.$1(r'$2'",
+      "fileTypes": ["py", "pyw"],
+      "severity": "info"
+    },
+    {
+      "id": "python-exception-syntax",
+      "name": "Modern exception syntax",
+      "description": "Use 'except Exception as e:' instead of 'except Exception, e:'",
+      "pattern": "except\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*,\\s*([a-zA-Z_][a-zA-Z0-9_]*):",
+      "replacement": "except $1 as $2:",
+      "fileTypes": ["py", "pyw"],
+      "severity": "error"
+    }
+  ],
+  "fileExtensions": ["py", "pyw"],
+  "ignorePatterns": [
+    "__pycache__/**",
+    "*.pyc",
+    "*.pyo",
+    "*.pyd",
+    ".Python",
+    "build/**",
+    "develop-eggs/**",
+    "dist/**",
+    "downloads/**",
+    "eggs/**",
+    ".eggs/**",
+    "lib/**",
+    "lib64/**",
+    "parts/**",
+    "sdist/**",
+    "var/**",
+    "wheels/**",
+    "*.egg-info/**",
+    ".installed.cfg",
+    "*.egg",
+    "venv/**",
+    "env/**",
+    ".venv/**"
+  ],
+  "maxFileSize": "1MB"
+}

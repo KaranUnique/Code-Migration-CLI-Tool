@@ -1,0 +1,49 @@
+{
+  "name": "code-migration-cli",
+  "version": "1.0.0",
+  "description": "A cross-platform CLI tool for detecting and fixing deprecated API usages and syntax patterns in codebases",
+  "main": "index.js",
+  "bin": {
+    "code-migrate": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "cli",
+    "code-migration",
+    "refactoring",
+    "deprecated-api",
+    "syntax-checker",
+    "cross-platform"
+  ],
+  "author": "Developer",
+  "license": "MIT",
+  "dependencies": {
+    "yargs": "^17.7.2",
+    "chalk": "^4.1.2",
+    "glob": "^10.3.10",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/code-migration-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/code-migration-cli/issues"
+  },
+  "homepage": "https://github.com/username/code-migration-cli#readme"
+}

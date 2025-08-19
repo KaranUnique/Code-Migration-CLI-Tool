@@ -1,0 +1,87 @@
+{
+  "rules": [
+    {
+      "id": "var-to-const",
+      "name": "Replace var with const/let",
+      "description": "Detects var declarations that should be const or let for better scoping",
+      "pattern": "\\bvar\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*=",
+      "replacement": "const $1 =",
+      "fileTypes": ["js", "jsx"],
+      "severity": "warning"
+    },
+    {
+      "id": "deprecated-substr",
+      "name": "Replace deprecated substr()",
+      "description": "The substr() method is deprecated, use substring() instead",
+      "pattern": "\\.substr\\(",
+      "replacement": ".substring(",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "error"
+    },
+    {
+      "id": "arrow-functions",
+      "name": "Convert to arrow functions",
+      "description": "Convert simple function expressions to arrow functions",
+      "pattern": "function\\s*\\(([^)]*)\\)\\s*{\\s*return\\s+([^;]+);\\s*}",
+      "replacement": "($1) => $2",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "info"
+    },
+    {
+      "id": "template-literals",
+      "name": "Use template literals",
+      "description": "Replace string concatenation with template literals",
+      "pattern": "(['\"])([^'\"]*?)\\1\\s*\\+\\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\+\\s*(['\"])([^'\"]*?)\\4",
+      "replacement": "`$2${$3}$5`",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "info"
+    },
+    {
+      "id": "console-log-detection",
+      "name": "Console.log statements",
+      "description": "Detects console.log statements that should be removed in production",
+      "pattern": "console\\.log\\s*\\(",
+      "replacement": null,
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "info"
+    },
+    {
+      "id": "deprecated-jquery",
+      "name": "Deprecated jQuery methods",
+      "description": "Detects deprecated jQuery methods that should be updated",
+      "pattern": "\\$\\([^)]*\\)\\.(live|die|toggle)\\(",
+      "replacement": null,
+      "fileTypes": ["js", "jsx"],
+      "severity": "error"
+    },
+    {
+      "id": "strict-equality",
+      "name": "Use strict equality",
+      "description": "Replace == with === for strict equality comparison",
+      "pattern": "([^=!])\\s*==\\s*([^=])",
+      "replacement": "$1 === $2",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "warning"
+    },
+    {
+      "id": "strict-inequality",
+      "name": "Use strict inequality",
+      "description": "Replace != with !== for strict inequality comparison",
+      "pattern": "([^=!])\\s*!=\\s*([^=])",
+      "replacement": "$1 !== $2",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "warning"
+    }
+  ],
+  "fileExtensions": ["js", "jsx", "ts", "tsx"],
+  "ignorePatterns": [
+    "node_modules/**",
+    "*.min.js",
+    "*.min.css",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    "vendor/**"
+  ],
+  "maxFileSize": "2MB"
+}

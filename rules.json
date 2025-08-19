@@ -1,0 +1,60 @@
+{
+  "rules": [
+    {
+      "id": "js-var-to-const",
+      "name": "Replace var with const/let",
+      "description": "Detects var declarations that should be const or let for better scoping",
+      "pattern": "\\bvar\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*=",
+      "replacement": "const $1 =",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "warning"
+    },
+    {
+      "id": "js-deprecated-substr",
+      "name": "Replace deprecated substr() with substring()",
+      "description": "The substr() method is deprecated, use substring() instead",
+      "pattern": "\\.substr\\(",
+      "replacement": ".substring(",
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "error"
+    },
+    {
+      "id": "python-print-statement",
+      "name": "Python 2 print statement to Python 3 function",
+      "description": "Detects Python 2 print statements within string content",
+      "pattern": "print\\s+([^(\\n]+)(?!\\s*\\()",
+      "replacement": "print($1)",
+      "fileTypes": ["py", "pyw"],
+      "severity": "error"
+    },
+    {
+      "id": "general-todo-fixme",
+      "name": "TODO and FIXME comments",
+      "description": "Identifies TODO and FIXME comments that need attention",
+      "pattern": "(TODO|FIXME|XXX)\\s*:?\\s*(.+)",
+      "replacement": null,
+      "fileTypes": ["js", "jsx", "ts", "tsx", "py", "java", "cpp", "c", "h"],
+      "severity": "info"
+    },
+    {
+      "id": "general-console-log",
+      "name": "Console.log statements",
+      "description": "Detects console.log statements that should be removed in production",
+      "pattern": "console\\.log\\s*\\(",
+      "replacement": null,
+      "fileTypes": ["js", "jsx", "ts", "tsx"],
+      "severity": "warning"
+    }
+  ],
+  "fileExtensions": ["js", "jsx", "ts", "tsx", "py", "pyw", "java", "cpp", "c", "h"],
+  "ignorePatterns": [
+    "node_modules/**",
+    "*.min.js",
+    "*.min.css",
+    "dist/**",
+    "build/**",
+    ".git/**",
+    "coverage/**"
+  ],
+  "maxFileSize": "1MB"
+}
