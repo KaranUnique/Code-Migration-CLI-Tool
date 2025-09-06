@@ -1,0 +1,35 @@
+# Ultra-minimal Dockerfile for smallest possible image
+FROM node:18-alpine AS base
+
+# Install only essential system packages
+RUN apk add --no-cache dumb-init
+
+# Create app directory and user in one layer
+RUN mkdir -p /app && \
+    addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 && \
+    chown nodejs:nodejs /app
+
+WORKDIR /app
+USER nodejs
+
+# Copy and install dependencies in one layer
+COPY --chown=nodejs:nodejs package*.json ./
+RUN npm ci --only=production --no-audit --no-fund && \
+    npm cache clean --force
+
+# Copy only essential application files
+COPY --chown=nodejs:nodejs index.js ./
+COPY --chown=nodejs:nodejs lib/ ./lib/
+COPY --chown=nodejs:nodejs rules.json ./
+
+# Set up runtime
+VOLUME ["/workspace"]
+WORKDIR /workspace
+ENTRYPOINT ["dumb-init", "node", "/app/index.js"]
+CMD ["--help"]
+
+# Metadata
+LABEL maintainer="your-email@example.com"
+LABEL description="Code Migration CLI - Detect and fix deprecated code patterns"
+LABEL version="1.0.0"

@@ -1,43 +1,86 @@
-# Node modules
+# Node modules (will be installed in container)
 node_modules
 npm-debug.log*
+yarn-error.log*
 
-# Git
+# Git files
 .git
 .gitignore
+.gitattributes
 
-# IDE files
-.vscode
-.idea
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# OS files
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Test files
+# Test files and coverage
 test/
+tests/
+__tests__/
 *.test.js
+*.spec.js
 jest.config.js
+coverage/
+.nyc_output/
 
-# Development files
-.eslintrc.js
-.prettierrc
+# Development and build files
+.eslintrc*
+.prettierrc*
+.babelrc*
+webpack.config.js
+rollup.config.js
+tsconfig.json
 
 # Documentation
 README.md
 CHANGELOG.md
 CONTRIBUTING.md
+LICENSE
+docs/
 
-# Backup files
+# Example and demo files
+examples/
+demo/
+samples/
+
+# Backup and temporary files
 .code-migration-backups/
+*.backup
+*.tmp
+*.log
 
-# Kiro IDE files
+# IDE specific files
 .kiro/
+.vscode/
+.idea/
 
 # Docker files
-Dockerfile
+Dockerfile*
 .dockerignore
-docker-compose.yml
+docker-compose*.yml
 
-# CI/CD
+# CI/CD files
 .github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment files
+.env*
+!.env.example

@@ -1,24 +1,44 @@
-# Use official Node.js runtime as base image
-FROM node:18-alpine
+# Multi-stage build for smaller image
+FROM node:18-alpine AS builder
 
-# Set working directory in container
+# Set working directory
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install ALL dependencies (including dev dependencies for building)
+RUN npm ci
 
-# Copy application code
+# Copy source code
 COPY . .
 
-# Create a non-root user for security
+# Remove dev dependencies and clean npm cache
+RUN npm prune --production && \
+    npm cache clean --force
+
+# Production stage - smaller final image
+FROM node:18-alpine AS production
+
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Create app directory
+WORKDIR /app
+
+# Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 
-# Change ownership of the app directory
-RUN chown -R nodejs:nodejs /app
+# Copy only production files from builder stage
+COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --chown=nodejs:nodejs package*.json ./
+COPY --chown=nodejs:nodejs index.js ./
+COPY --chown=nodejs:nodejs lib/ ./lib/
+COPY --chown=nodejs:nodejs rules.json ./
+COPY --chown=nodejs:nodejs config/ ./config/
+
+# Switch to non-root user
 USER nodejs
 
 # Create volume for user code
@@ -27,8 +47,8 @@ VOLUME ["/workspace"]
 # Set default working directory for mounted code
 WORKDIR /workspace
 
-# Set entrypoint to the CLI tool
-ENTRYPOINT ["node", "/app/index.js"]
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "node", "/app/index.js"]
 
 # Default command shows help
 CMD ["--help"]
