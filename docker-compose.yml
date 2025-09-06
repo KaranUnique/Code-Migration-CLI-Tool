@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  code-migration-cli:
+    build: .
+    image: code-migration-cli:latest
+    volumes:
+      - ./examples:/workspace/examples:ro
+      - ./output:/workspace/output
+    working_dir: /workspace
+    command: ["./examples/sample-project/src", "--extensions", "js,py", "--dry-run", "--verbose"]
+
+  # Interactive mode for development
+  code-migration-dev:
+    build: .
+    image: code-migration-cli:latest
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    entrypoint: ["/bin/sh"]

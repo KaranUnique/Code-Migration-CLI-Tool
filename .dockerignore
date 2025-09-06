@@ -1,0 +1,43 @@
+# Node modules
+node_modules
+npm-debug.log*
+
+# Git
+.git
+.gitignore
+
+# IDE files
+.vscode
+.idea
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+test/
+*.test.js
+jest.config.js
+
+# Development files
+.eslintrc.js
+.prettierrc
+
+# Documentation
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+
+# Backup files
+.code-migration-backups/
+
+# Kiro IDE files
+.kiro/
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# CI/CD
+.github/
